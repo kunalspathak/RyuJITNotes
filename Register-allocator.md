@@ -1,4 +1,13 @@
 
+## GTF_SPILL and GTF_SPILLED
+- Def - GTF_SPILL: Spill after evaluated and the value will not be live in the register.
+- Use - GTF_SPILLED: Reload before the use
+- For normal variables, only "use" variables can have both GTF_SPILL and GTF_SPILLED simultaneously. It is reloaded prior to the use and spilled after it is evaluated.
+- For EH variables,  "def" variables can have both GTF_SPILL and GTF_SPILLED simultaneously. If it does, it will also keep the variable alive in register.
+- Refpositions "spillAfter" and "reload" are the 2 flags that gets propagated to GenTreeNodes in terms of GTF_SPILL and GTF_SPILLED respectively during the write-back phase.
+
+## Algorithm
+
 ```cs
 // Construction Phase
 
